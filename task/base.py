@@ -70,7 +70,7 @@ class HyperJobTest(DjangoTest):
             return CheckResult.false(f'Cannot create resume: {err.reason}')
 
         try:
-            page = self.read_page(f'http://localhost:{self.port}/resumes')
+            page = self.read_page(f'http://localhost:{self.port}/resume')
             description = f'{self.USERNAME}: {self.OCCUPATION}'
             if description not in page:
                 return CheckResult.false(
@@ -78,7 +78,7 @@ class HyperJobTest(DjangoTest):
                 )
             return CheckResult.true()
         except urllib.error.URLError:
-            return CheckResult.false('Cannot connect to the resumes page.')
+            return CheckResult.false('Cannot connect to the resume page.')
 
     def check_create_resumes(self) -> CheckResult:
         connection = sqlite3.connect(TEST_DATABASE)
@@ -159,20 +159,20 @@ class HyperJobTest(DjangoTest):
                     'csrfmiddlewaretoken': csrf_options[0],
                 }).encode()
             )
-            return CheckResult.false('Should not allow anonymous users create resumes')
+            return CheckResult.false('Should not allow anonymous users create resume')
         except urllib.error.URLError as err:
             if 'Forbidden' not in err.reason:
                 return CheckResult.false(f'Wrong response for forbidden requests: {err.reason}')
 
         try:
-            page = self.read_page(f'http://localhost:{self.port}/resumes')
+            page = self.read_page(f'http://localhost:{self.port}/resume')
             if OTHER_OCCUPATION in page:
                 return CheckResult.false(
-                    f'Resumes page should not contain resumes from anonymous users'
+                    f'Resumes page should not contain resume from anonymous users'
                 )
             return CheckResult.true()
         except urllib.error.URLError:
-            return CheckResult.false('Cannot connect to the resumes page.')
+            return CheckResult.false('Cannot connect to the resume page.')
 
     def check_forbid_to_create_vacancy(self) -> CheckResult:
         opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(self.cookie_jar))
@@ -233,7 +233,7 @@ class HyperJobTest(DjangoTest):
                 '/login',
                 '/signup',
                 '/vacancies',
-                '/resumes',
+                '/resume',
                 '/home',
             ):
                 if link not in links:
@@ -276,17 +276,17 @@ class HyperJobTest(DjangoTest):
 
     def check_resumes(self) -> CheckResult:
         try:
-            page = self.read_page(f'http://localhost:{self.port}/resumes')
+            page = self.read_page(f'http://localhost:{self.port}/resume')
             for person, resume in zip(INITIAL_USERS[len(INITIAL_VACANCIES):], INITIAL_RESUMES):
                 description = f'{person[1]}: {resume[1]}'
                 if description not in page:
                     return CheckResult.false(
-                        f'Resumes page should contain resumes in form <username>: <description>'
+                        f'Resumes page should contain resume in form <username>: <description>'
                     )
             return CheckResult.true()
         except urllib.error.URLError:
             return CheckResult.false(
-                'Cannot connect to the resumes page.'
+                'Cannot connect to the resume page.'
             )
 
     def check_signup(self) -> CheckResult:

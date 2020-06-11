@@ -1,0 +1,14 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Resume</title>
+</head>
+<body>
+<div><h2>This is the resumes page</h2></div>
+<div><a href="..">back</a></div>
+{% for r in resume_list %}
+<div>{{ r.author.username }}: {{ r.description }}</div>
+{% endfor %}
+</body>
+</html>

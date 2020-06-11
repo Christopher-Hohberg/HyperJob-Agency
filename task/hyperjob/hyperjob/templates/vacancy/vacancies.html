@@ -1,0 +1,14 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Vacancies</title>
+</head>
+<body>
+<div><h2>This is the vacancies page</h2></div>
+<div><a href="..">back</a></div>
+{% for v in vacancies_list %}
+<div>{{ v.author.username }}: {{ v.description }}</div>
+{% endfor %}
+</body>
+</html>
