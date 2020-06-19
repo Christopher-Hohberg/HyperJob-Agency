@@ -1,0 +1,16 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Signup</title>
+</head>
+<body>
+<div><h2>This is the signup page</h2></div>
+<div><a href="/">back</a> </div>
+<form method="post" action="signup">{% csrf_token %}
+    <table>{{ form.as_table }}</table>
+    <button type="submit">Signup</button>
+</form>
+
+</body>
+</html>

@@ -1,5 +1,5 @@
 from django.db import models
-import django.contrib.auth.models
+import django.contrib.auth.models as mo
 
 
 # Create your models here.
@@ -9,7 +9,7 @@ class Resume(models.Model):
         app_label = "resume"
 
     description = models.TextField(max_length=1024)
-    author = models.ForeignKey(django.contrib.auth.models.User, on_delete=models.CASCADE)
+    author = models.ForeignKey(mo.User, on_delete=models.CASCADE)
 
     r = models.Manager()
 
@@ -19,7 +19,7 @@ class Vacancy(models.Model):
         app_label = "vacancy"
 
     description = models.TextField(max_length=1024)
-    author = models.ForeignKey(django.contrib.auth.models.User, on_delete=models.CASCADE)
+    author = models.ForeignKey(mo.User, on_delete=models.CASCADE)
 
     r = models.Manager()
 

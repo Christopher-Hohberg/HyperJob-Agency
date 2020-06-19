@@ -15,11 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from resume.views import IndexView, ResumeView
+from django.contrib.auth.views import LogoutView
+from resume.views import IndexView, ResumeView, MyLoginView, MySignupView, MyProfileView, CreateNew
 from vacancy.views import VacancyView
 
 urlpatterns = [
     path("", IndexView.as_view()),
     path("resume", ResumeView.as_view()),
     path("vacancies", VacancyView.as_view()),
+    path("login", MyLoginView.as_view()),
+    path("signup", MySignupView.as_view()),
+    path("logout", LogoutView.as_view()),
+    path("home", MyProfileView.as_view()),
+    path("vacancy/new", CreateNew.as_view()),
+    path("resume/new", CreateNew.as_view()),
 ]

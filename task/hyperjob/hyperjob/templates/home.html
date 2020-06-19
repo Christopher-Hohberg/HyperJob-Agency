@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Profile page</title>
+</head>
+<body>
+<h2>This is the profile page</h2>
+<div><a href="/">back</a></div>
+{% if user.is_authenticated %}
+    <div>Welcome, you are logged in as: {{ user.get_username }}</div>
+    {% if user.is_staff %}
+        <div>Your member-status is: Manager</div>
+        <div>You can create a new vacancy below</div>
+        <br>
+        <form action="vacancy/new" method="post">{% csrf_token %}
+            <input type="text" maxlength="1024" name="description">
+            <button type="submit">Create vacancy</button>
+        </form>
+
+    {% else %}
+        <div>Your member-status is: Candidate</div>
+        <div>You can create a new resume below</div>
+        <br>
+        <form action="resume/new" method="post">{% csrf_token %}
+            <input type="text" maxlength="1024" name="description">
+            <button type="submit">Create resume</button>
+        </form>
+    {% endif %}
+
+    <div><a href="logout">logout</a></div>
+{% else %}
+    <div>You are currently not logged in. Please log in with a valid user-account before accessing the profile page</div>
+    <div><a href="login">login</a></div>
+{% endif %}
+
+</body>
+</html>
